@@ -1,0 +1,26 @@
+{
+	"name": "ds_covidreporting_raw_gz_snehasish",
+	"properties": {
+		"description": "it is the compressed dataset we gathered for processing through the pipeline for storing in data lake",
+		"linkedServiceName": {
+			"referenceName": "ls_blob_covidreporting_snehasish",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "population_by_age.tsv.gz",
+				"container": "population-snehasish"
+			},
+			"columnDelimiter": "\t",
+			"compressionCodec": "gzip",
+			"compressionLevel": "Optimal",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}

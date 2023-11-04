@@ -1,0 +1,23 @@
+{
+	"name": "ds_covidreporting_raw_tsv_snehasish",
+	"properties": {
+		"description": "This is the raw dataset we are going to receive after processing through the pipe.",
+		"linkedServiceName": {
+			"referenceName": "ls_dls_covidreportingdl_snehasish",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileSystem": "raw-snehasish"
+			},
+			"columnDelimiter": "\t",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
