@@ -1,0 +1,25 @@
+{
+	"name": "ds_cases_deaths_raw_csv_dl_snehasish",
+	"properties": {
+		"description": "it is a data set to get data from the pipeline",
+		"linkedServiceName": {
+			"referenceName": "ls_dls_covidreportingdl_snehasish",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "cases_deaths",
+				"folderPath": "ecdc",
+				"fileSystem": "raw-snehasish"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
