@@ -13,6 +13,9 @@
 		},
 		"ls_dls_covidreportingdl_snehasish_properties_typeProperties_url": {
 			"value": "https://covidreportingdatalakesn.dfs.core.windows.net/"
+		},
+		"ls_opendata_ecdc_europa_eu_snehasish_properties_typeProperties_url": {
+			"value": "https://github.com"
 		}
 	}
 }
