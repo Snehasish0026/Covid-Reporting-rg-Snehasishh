@@ -1,6 +1,7 @@
 {
 	"name": "tr_ingest_hospital_admission_data",
 	"properties": {
+		"description": "It is a trigger to initiate the hospital admission data ingestion pipeline",
 		"annotations": [],
 		"runtimeState": "Started",
 		"pipelines": [],
