@@ -17,14 +17,13 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "JsonSource",
+						"type": "DelimitedTextSource",
 						"storeSettings": {
-							"type": "AzureBlobStorageReadSettings",
-							"recursive": true,
-							"enablePartitionDiscovery": false
+							"type": "HttpReadSettings",
+							"requestMethod": "GET"
 						},
 						"formatSettings": {
-							"type": "JsonReadSettings"
+							"type": "DelimitedTextReadSettings"
 						}
 					},
 					"sink": {
@@ -38,12 +37,30 @@
 							"fileExtension": ".txt"
 						}
 					},
-					"enableStaging": false
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
 				},
 				"inputs": [
 					{
-						"referenceName": "ds_ecdc_filelist_sneasish",
-						"type": "DatasetReference"
+						"referenceName": "ds_ecdc_raw_csv_http_snehasish",
+						"type": "DatasetReference",
+						"parameters": {
+							"sourceRelativeURL": {
+								"value": "@pipeline().parameters.sourceRelativeURL",
+								"type": "Expression"
+							},
+							"sourceBaseURL": {
+								"value": "@pipeline().parameters.sourceBaseURL",
+								"type": "Expression"
+							}
+						}
 					}
 				],
 				"outputs": [
