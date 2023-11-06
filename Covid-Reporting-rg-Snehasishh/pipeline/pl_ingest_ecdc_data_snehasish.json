@@ -50,24 +50,39 @@
 				"inputs": [
 					{
 						"referenceName": "ds_ecdc_raw_csv_http_snehasish",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"sourceRelativeURL": {
+								"value": "@pipeline().parameters.sourceRelativeURL",
+								"type": "Expression"
+							}
+						}
 					}
 				],
 				"outputs": [
 					{
 						"referenceName": "ds_ecdc_raw_csv_dl_snehasish",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"filename": {
+								"value": "@pipeline().parameters.sinkFileName",
+								"type": "Expression"
+							}
+						}
 					}
 				]
 			}
 		],
 		"concurrency": 1,
-		"variables": {
+		"parameters": {
 			"sourceBaseURL": {
-				"type": "String"
+				"type": "string"
 			},
 			"sourceRelativeURL": {
-				"type": "String"
+				"type": "string"
+			},
+			"sinkFileName": {
+				"type": "string"
 			}
 		},
 		"annotations": []
