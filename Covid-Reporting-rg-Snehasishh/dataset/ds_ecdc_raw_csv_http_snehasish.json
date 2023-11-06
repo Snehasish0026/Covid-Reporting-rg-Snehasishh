@@ -6,12 +6,20 @@
 			"referenceName": "ls_opendata_ecdc_europa_eu_snehasish",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"sourceRelativeURL": {
+				"type": "string"
+			}
+		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
 				"type": "HttpServerLocation",
-				"relativeUrl": "cloudboxacademy/covid19/raw/main/ecdc_data/cases_deaths.csv"
+				"relativeUrl": {
+					"value": "@dataset().sourceRelativeURL",
+					"type": "Expression"
+				}
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
