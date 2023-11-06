@@ -1,5 +1,5 @@
 {
-	"name": "pl_ingest_cases_deaths_data_snehasish",
+	"name": "pl_ingest_ecdc_data_snehasish",
 	"properties": {
 		"description": "it is a pipeline to copy data from a website to a data lake storage",
 		"activities": [
