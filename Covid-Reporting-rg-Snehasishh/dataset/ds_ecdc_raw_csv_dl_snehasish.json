@@ -1,5 +1,5 @@
 {
-	"name": "ds_cases_deaths_raw_csv_dl_snehasish",
+	"name": "ds_ecdc_raw_csv_dl_snehasish",
 	"properties": {
 		"description": "it is a data set to get data from the pipeline",
 		"linkedServiceName": {
