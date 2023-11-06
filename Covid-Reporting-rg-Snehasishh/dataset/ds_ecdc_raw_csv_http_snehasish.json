@@ -4,10 +4,19 @@
 		"description": "it is a dataset to gather data from a source website",
 		"linkedServiceName": {
 			"referenceName": "ls_opendata_ecdc_europa_eu_snehasish",
-			"type": "LinkedServiceReference"
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"sourceBaseURL": {
+					"value": "@dataset().sourceBaseURL",
+					"type": "Expression"
+				}
+			}
 		},
 		"parameters": {
 			"sourceRelativeURL": {
+				"type": "string"
+			},
+			"sourceBaseURL": {
 				"type": "string"
 			}
 		},
