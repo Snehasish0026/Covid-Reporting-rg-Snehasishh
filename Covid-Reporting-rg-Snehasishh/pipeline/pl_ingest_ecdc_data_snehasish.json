@@ -49,19 +49,27 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "ds_cases_deaths_raw_csv_http_snehasish",
+						"referenceName": "ds_ecdc_raw_csv_http_snehasish",
 						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "ds_cases_deaths_raw_csv_dl_snehasish",
+						"referenceName": "ds_ecdc_raw_csv_dl_snehasish",
 						"type": "DatasetReference"
 					}
 				]
 			}
 		],
 		"concurrency": 1,
+		"variables": {
+			"sourceBaseURL": {
+				"type": "String"
+			},
+			"sourceRelativeURL": {
+				"type": "String"
+			}
+		},
 		"annotations": []
 	}
 }
