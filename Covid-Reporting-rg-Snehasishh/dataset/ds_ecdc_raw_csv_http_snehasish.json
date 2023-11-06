@@ -1,5 +1,5 @@
 {
-	"name": "ds_cases_deaths_raw_csv_http_snehasish",
+	"name": "ds_ecdc_raw_csv_http_snehasish",
 	"properties": {
 		"description": "it is a dataset to gather data from a source website",
 		"linkedServiceName": {
