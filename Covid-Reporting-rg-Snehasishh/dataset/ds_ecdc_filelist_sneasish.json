@@ -1,0 +1,33 @@
+{
+	"name": "ds_ecdc_filelist_sneasish",
+	"properties": {
+		"description": "this is the dataset contains source folder",
+		"linkedServiceName": {
+			"referenceName": "ls_blob_covidreporting_snehasish",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "github_ecdc_file_list.json",
+				"container": "config"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"sourceBaseURL": {
+					"type": "string"
+				},
+				"sourceRelativeURL": {
+					"type": "string"
+				},
+				"sinkFileName": {
+					"type": "string"
+				}
+			}
+		}
+	}
+}
