@@ -29,6 +29,55 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Data flow1",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "dataflow1",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"source1": {},
+									"sink1": {}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "None",
+							"cacheSinks": {
+								"firstRowOnly": true
+							}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/dataflows/dataflow1')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/pl_ingest_ecdc_data_snehasish')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -691,6 +740,9 @@
 						},
 						{
 							"name": "select1"
+						},
+						{
+							"name": "pivot1"
 						}
 					],
 					"scriptLines": [
@@ -721,7 +773,16 @@
 						"     ),",
 						"     skipDuplicateMapInputs: true,",
 						"     skipDuplicateMapOutputs: false) ~> select1",
-						"select1 sink(allowSchemaDrift: true,",
+						"select1 pivot(groupBy(country,",
+						"          country_code,",
+						"          population,",
+						"          source,",
+						"          Reporting_date),",
+						"     pivotBy(indicator),",
+						"     counts = sum(daily_count),",
+						"     columnNaming: '$V-$N',",
+						"     lateral: true) ~> pivot1",
+						"pivot1 sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
 						"     umask: 0022,",
 						"     preCommands: [],",
@@ -735,18 +796,6 @@
 				"[concat(variables('factoryId'), '/datasets/ds_raw_cases_and_death_snehasish')]",
 				"[concat(variables('factoryId'), '/datasets/ds_cases_deaths_sink_snehasish')]"
 			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"annotations": []
-			},
-			"dependsOn": []
 		}
 	]
 }
