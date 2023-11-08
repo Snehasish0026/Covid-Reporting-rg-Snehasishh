@@ -30,19 +30,13 @@
 			],
 			"transformations": [
 				{
-					"name": "filter1"
-				},
-				{
-					"name": "select1"
-				},
-				{
-					"name": "pivot1"
-				},
-				{
 					"name": "lookup1"
 				},
 				{
 					"name": "select2"
+				},
+				{
+					"name": "pivot1"
 				}
 			],
 			"scriptLines": [
@@ -70,29 +64,7 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> source2",
-				"source1 filter(continent == 'Europe' && not(isNull(country_code))) ~> filter1",
-				"filter1 select(mapColumn(",
-				"          country,",
-				"          country_code,",
-				"          population,",
-				"          indicator,",
-				"          daily_count,",
-				"          source,",
-				"          each(match(name=='date'),",
-				"               'Reporting_'+'date' = $$)",
-				"     ),",
-				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: false) ~> select1",
-				"select1 pivot(groupBy(country,",
-				"          country_code,",
-				"          population,",
-				"          source,",
-				"          Reporting_date),",
-				"     pivotBy(indicator),",
-				"     counts = sum(daily_count),",
-				"     columnNaming: '$V-$N',",
-				"     lateral: true) ~> pivot1",
-				"pivot1, source2 lookup(pivot1@country == source2@country,",
+				"source1, source2 lookup(select1@country == source2@country,",
 				"     multiple: false,",
 				"     pickup: 'any',",
 				"     broadcast: 'auto')~> lookup1",
@@ -106,7 +78,9 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select2",
-				"select2 sink(allowSchemaDrift: true,",
+				"select2 pivot(columnNaming: '$N$V',",
+				"     lateral: true) ~> pivot1",
+				"pivot1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     umask: 0022,",
 				"     preCommands: [],",
