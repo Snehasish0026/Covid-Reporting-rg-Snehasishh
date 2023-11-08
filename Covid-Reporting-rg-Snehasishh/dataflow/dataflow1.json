@@ -10,6 +10,13 @@
 						"type": "DatasetReference"
 					},
 					"name": "source1"
+				},
+				{
+					"dataset": {
+						"referenceName": "ds_country_lookup_snehasish",
+						"type": "DatasetReference"
+					},
+					"name": "source2"
 				}
 			],
 			"sinks": [
@@ -30,6 +37,12 @@
 				},
 				{
 					"name": "pivot1"
+				},
+				{
+					"name": "lookup1"
+				},
+				{
+					"name": "select2"
 				}
 			],
 			"scriptLines": [
@@ -47,6 +60,16 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> source1",
+				"source(output(",
+				"          country as string,",
+				"          country_code_2_digit as string,",
+				"          country_code_3_digit as string,",
+				"          continent as string,",
+				"          population as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source2",
 				"source1 filter(continent == 'Europe' && not(isNull(country_code))) ~> filter1",
 				"filter1 select(mapColumn(",
 				"          country,",
@@ -69,7 +92,21 @@
 				"     counts = sum(daily_count),",
 				"     columnNaming: '$V-$N',",
 				"     lateral: true) ~> pivot1",
-				"pivot1 sink(allowSchemaDrift: true,",
+				"pivot1, source2 lookup(pivot1@country == source2@country,",
+				"     multiple: false,",
+				"     pickup: 'any',",
+				"     broadcast: 'auto')~> lookup1",
+				"lookup1 select(mapColumn(",
+				"          country = pivot1@country,",
+				"          country_code_2_digit,",
+				"          country_code_3_digit,",
+				"          population = pivot1@population,",
+				"          source,",
+				"          Reporting_date",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select2",
+				"select2 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     umask: 0022,",
 				"     preCommands: [],",
