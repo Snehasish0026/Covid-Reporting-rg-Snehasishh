@@ -1216,7 +1216,6 @@
 						"          reported_year_week,",
 						"          population,",
 						"          source,",
-						"          ecdc_year_week,",
 						"          Week_start_date,",
 						"          week_end_date),",
 						"     pivotBy(indicator),",
