@@ -1,0 +1,23 @@
+{
+	"name": "ds_hospital_admission_daily",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_dls_covidreportingdl_snehasish",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "daily",
+				"fileSystem": "hospital-data"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}

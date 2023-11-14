@@ -1,0 +1,23 @@
+{
+	"name": "ds_hospital_admission_sink",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_dls_covidreportingdl_snehasish",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "weekly",
+				"fileSystem": "hospital-data"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
